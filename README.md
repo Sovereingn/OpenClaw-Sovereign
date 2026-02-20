@@ -21,3 +21,4 @@ Este projeto está sendo documentado publicamente para a comunidade brasileira.
 
 ---
 *Aviso: Este é um projeto experimental de pesquisa em IA Descentralizada.*
+# OpenClaw-Sovereign
