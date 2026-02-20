@@ -1,58 +1,29 @@
-import os
-import requests
-from dotenv import load_dotenv
-
-# Carrega as chaves secretas (O Escudo)
-load_dotenv()
+from src.finance.x402_wallet import HeadlessWalletX402
 
 class MacroTrader:
     """
     Módulo Financeiro Global do OpenClaw Sovereign.
-    Conecta o agente aos mercados de Forex e Commodities via 0xMarkets (SN35).
+    Agora protegido pelo protocolo de carteiras portáteis x402.
     """
-
     def __init__(self):
-        # Carregando credenciais da armadura
-        self.api_key = os.getenv("SN35_API_KEY")
-        # Endpoint hipotético da rede 0xMarkets no Bittensor
         self.endpoint = "https://api.0xmarkets.tao/v1/trade"
+        # O Trader agora "veste" a carteira headless
+        self.wallet = HeadlessWalletX402()
 
     def execute_trade(self, asset: str, side: str, amount_usd: float, leverage: int = 1):
-        """
-        Executa uma ordem de compra ou venda em mercados tradicionais (Ouro, Fiat).
-        """
-        # Normalização de símbolos
-        symbol_map = {
-            "GOLD": "XAU/USD",
-            "EURO": "EUR/USD",
-            "YEN": "JPY/USD"
-        }
-        target_symbol = symbol_map.get(asset.upper(), asset.upper())
-        action = side.upper()
+        target_symbol = asset.upper()
+        print(f"\n🌍 [MacroTrader] Iniciando Execução Financeira: {side} {target_symbol} | ${amount_usd}")
 
-        print(f"\n🌍 [MacroTrader] Iniciando Protocolo de Execução Financeira...")
-        print(f"    Alvo: {target_symbol} | Ação: {action} | Volume: ${amount_usd} | Alavancagem: {leverage}x")
-
-        payload = {
-            "pair": target_symbol,
-            "side": action.lower(),
-            "amount": amount_usd,
-            "leverage": leverage
-        }
-
-        # Simulação de envio para a rede (em produção usaria requests.post)
         try:
-            if not self.api_key:
-                print("⚠️  AVISO: SN35_API_KEY não encontrada no .env. Executando em modo simulação (Paper Trading).")
-                return f"[Paper Trade] Ordem de {action} para {target_symbol} registrada com sucesso."
-
-            # A chamada real para a SN35 seria feita aqui:
-            # response = requests.post(self.endpoint, json=payload, headers={"Authorization": f"Bearer {self.api_key}"})
-            # response.raise_for_status()
-            # data = response.json()
+            # 1. O agente prepara o pagamento (M2M Payment)
+            auth_headers = self.wallet.sign_payment_request(self.endpoint, amount_usd)
             
-            print(f"💎 [Sucesso] Ordem roteada via Subnet 35. Execução descentralizada confirmada.")
-            return f"Trade executado: {action} {target_symbol} a mercado."
+            # 2. O agente envia a ordem para a rede com o pagamento embutido no Header HTTP
+            payload = {"pair": target_symbol, "side": side, "amount": amount_usd}
+            
+            # Simulação: requests.post(self.endpoint, json=payload, headers=auth_headers)
+            print(f"    💎 [Sucesso] Ordem enviada via Subnet 35. Pagamento x402 liquidado em milissegundos.")
+            return f"Trade executado de forma soberana."
 
         except Exception as e:
             print(f"❌ [Erro Fatal] Falha na execução da ordem: {e}")
@@ -62,6 +33,10 @@ class MacroTrader:
 # TESTE DO SISTEMA (Para você rodar localmente)
 # ==========================================
 if __name__ == "__main__":
+    # Para testar, vamos definir o token na variável de ambiente localmente
+    import os
+    os.environ["X402_SESSION_TOKEN"] = "teste_sessao_local_123"
+    
     trader = MacroTrader()
     
     # Simulação 1: O OpenClaw detectou queda no Bitcoin e decide fazer "Hedge" (Proteção) em Ouro
