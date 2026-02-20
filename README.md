@@ -16,8 +16,8 @@ O OpenClaw é modular e roteia tarefas para os melhores mineradores do mundo:
 
 ## 📺 Acompanhe a Construção
 Este projeto está sendo documentado publicamente para a comunidade brasileira.
-* **YouTube:** [Seu Link do YouTube]
-* **X (Twitter):** [@SeuUserDoTwitter]
+* **YouTube:** BittensorBrazil
+* **X (Twitter):** BittensorBrazil
 
 ---
 *Aviso: Este é um projeto experimental de pesquisa em IA Descentralizada.*
