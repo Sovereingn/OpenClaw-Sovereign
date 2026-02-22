@@ -1,5 +1,6 @@
 import time
 import sys
+import os
 
 # Importando os órgãos do OpenClaw
 # (Certifique-se de que os arquivos risk_manager.py, macro_trader.py, etc., estejam na pasta src/finance)
@@ -21,8 +22,19 @@ class OpenClawSovereign:
         self.trader = MacroTrader()
         self.agent_wallet_balance = 5000.00 # Saldo fictício em USDC
 
+    def check_wallet_status(self):
+        """Imprime o endereço público e o saldo atual do Agente."""
+        endereco = self.trader.wallet.wallet_address
+        print(f"\n🏦 [Tesouraria Soberana]")
+        print(f"    💳 Endereço Público (x402): {endereco}")
+        print(f"    💵 Saldo Disponível: ${self.agent_wallet_balance:.2f} USDC")
+        print("-" * 40)
+
     def wake_up_and_hunt(self):
         """O ciclo de vida diário do agente."""
+        self.check_wallet_status()
+        time.sleep(1)
+
         print("\n🌅 [OpenClaw] Ciclo de processamento iniciado. Procurando oportunidades...")
         time.sleep(1)
 
@@ -69,6 +81,9 @@ class OpenClawSovereign:
 # INÍCIO DA OPERAÇÃO
 # ==========================================
 if __name__ == "__main__":
+    # Simulação local do Token x402
+    os.environ["X402_SESSION_TOKEN"] = "token_de_teste_local"
+    
     try:
         agent = OpenClawSovereign()
         agent.wake_up_and_hunt()
