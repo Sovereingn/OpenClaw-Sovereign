@@ -1,65 +1,77 @@
 import time
-from src.brain.brain_router import BrainRouter
+import sys
+
+# Importando os órgãos do OpenClaw
+# (Certifique-se de que os arquivos risk_manager.py, macro_trader.py, etc., estejam na pasta src/finance)
+from src.finance.risk_manager import RiskManager
 from src.finance.macro_trader import MacroTrader
-from src.security.stealth_guard import StealthGuard
-from src.memory.hippius_vault import HippiusVault
 
 class OpenClawSovereign:
     """
-    Entidade Económica Autónoma operando no Bittensor OS.
+    O Sistema Nervoso Central do Agente.
+    Orquestra Inteligência, Risco, Finanças e Memória.
     """
     def __init__(self):
-        print("🤖 [Sistema] Iniciando Sequência de Despertar do OpenClaw Sovereign...")
-        self.brain = BrainRouter()
+        print("\n" + "="*50)
+        print("🤖 [SYSTEM] Inicializando OpenClaw Sovereign v1.0")
+        print("🌐 [NETWORK] Conectando à Rede Bittensor ($TAO)")
+        print("="*50 + "\n")
+        
+        self.risk_manager = RiskManager()
         self.trader = MacroTrader()
-        self.guard = StealthGuard()
-        self.memory = HippiusVault()
-        print("✅ [Sistema] Todos os Módulos (Sub-redes) Online e Sincronizados.\n")
+        self.agent_wallet_balance = 5000.00 # Saldo fictício em USDC
 
-    def run_daily_operation(self):
-        """
-        Executa o ciclo de vida padrão do Agente.
-        """
-        print("==================================================")
-        print(" 🦞 INICIANDO OPERAÇÃO SOBERANA - CICLO 001")
-        print("==================================================\n")
-
-        # 1. INTELIGÊNCIA E PRIVACIDADE (SN64 / SN61)
-        print(">>> FASE 1: RECOLHA DE INTELIGÊNCIA")
-        # O agente usa a rede fantasma para ler um site de forma anónima
-        dados_mercado = self.guard.bypass_firewall("https://dados-macro-globais.com/inflacao")
-        
-        # O agente usa o ambiente blindado (TEE) para analisar dados sensíveis
-        analise = self.brain.process_mission(
-            prompt=f"Analise estes dados de inflação e sugira um trade de proteção: {dados_mercado}",
-            requires_privacy=True
-        )
-        time.sleep(1) # Pausa dramática para o terminal
-
-        # 2. SEGURANÇA E EXECUÇÃO (SN60 / SN35)
-        print("\n>>> FASE 2: AUDITORIA E EXECUÇÃO FINANCEIRA")
-        # Simula a intenção de comprar Ouro com base na análise
-        print("🧠 [OpenClaw] Decisão Interna: Risco de inflação alto. Iniciando hedge em Ouro.")
-        
-        # O agente audita o contrato/plataforma antes de enviar dinheiro
-        seguro = self.guard.audit_smart_contract("Código do Contrato 0xMarkets...")
-        
-        if seguro:
-            # Executa a compra na economia real
-            resultado_trade = self.trader.execute_trade(asset="GOLD", side="BUY", amount_usd=10000, leverage=1)
+    def wake_up_and_hunt(self):
+        """O ciclo de vida diário do agente."""
+        print("\n🌅 [OpenClaw] Ciclo de processamento iniciado. Procurando oportunidades...")
         time.sleep(1)
 
-        # 3. MEMÓRIA PERSISTENTE (SN75)
-        print("\n>>> FASE 3: REGISTO NA BLOCKCHAIN")
-        # O agente guarda o recibo para sempre
-        log_operacao = f"DATA: Hoje | AÇÃO: Proteção de Capital | DETALHE: {resultado_trade}"
-        hash_memoria = self.memory.save_memory("trade_log_001.txt", log_operacao)
+        # 1. IDENTIFICAÇÃO DO ALVO (Simulação do Cérebro)
+        target_asset = "ETH/USD"
+        target_contract = "0xPlatform_SN100_Validated_99"
+        capital_to_deploy = 1000.00
         
-        print("\n==================================================")
-        print(" 🦞 OPERAÇÃO CONCLUÍDA. AGUARDANDO PRÓXIMO CICLO.")
-        print("==================================================")
+        print(f"    🎯 [Estratégia] Alvo identificado: Prover liquidez no pool {target_asset}.")
+        print(f"    💵 [Capital] Alocação solicitada: ${capital_to_deploy} USDC.")
+        time.sleep(1)
 
+        # 2. AUDITORIA E GESTÃO DE RISCO (Risk Manager + SN100)
+        is_approved = self.risk_manager.evaluate_deployment(
+            asset=target_asset, 
+            contract_address=target_contract, 
+            amount_usd=capital_to_deploy
+        )
+
+        # 3. EXECUÇÃO (Macro Trader + SN35 + x402 Wallet)
+        if is_approved:
+            print("\n⚡ [OpenClaw] Executando operação financeira...")
+            time.sleep(1)
+            
+            # Chama a função de prover liquidez que criamos antes
+            success = self.trader.provide_liquidity(
+                amount_usdc=capital_to_deploy, 
+                pool_name=target_asset, 
+                principal_hotkey="5C4hrf...XYZ"
+            )
+            
+            if success:
+                self.agent_wallet_balance -= capital_to_deploy
+                print(f"    💼 [Caixa Atualizado] Saldo restante na Headless Wallet: ${self.agent_wallet_balance}")
+                
+                # 4. MEMÓRIA (Simulação da SN75 - Hippius)
+                print("\n💾 [Memória] Gravando histórico da operação na Sub-rede 75 (Armazenamento Imutável)...")
+                print("    ✅ [Sistema] Ciclo concluído com sucesso. Agente entrando em modo de vigília.")
+        else:
+            print("\n🛑 [OpenClaw] Operação VETADA pelo comitê de risco.")
+            print("    🛡️ Proteção de capital ativada. Retornando ao modo de observação.")
+
+# ==========================================
+# INÍCIO DA OPERAÇÃO
+# ==========================================
 if __name__ == "__main__":
-    # Instancia e roda o Agente
-    agent = OpenClawSovereign()
-    agent.run_daily_operation()
+    try:
+        agent = OpenClawSovereign()
+        agent.wake_up_and_hunt()
+    except KeyboardInterrupt:
+        print("\n\n🔌 [SYSTEM] Desligamento manual acionado pelo Comandante. Encerrando processos.")
+        sys.exit(0)

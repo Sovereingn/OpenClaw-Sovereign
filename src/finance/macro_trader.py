@@ -29,6 +29,24 @@ class MacroTrader:
             print(f"❌ [Erro Fatal] Falha na execução da ordem: {e}")
             return None
 
+    def provide_liquidity(self, amount_usdc: float, pool_name: str, principal_hotkey: str) -> bool:
+        """
+        Simula o provimento de liquidez para uma pool DeFi (ex: ETH/USD) operada na rede TAO.
+        """
+        print(f"\n💧 [MacroTrader] Solicitando provisão de liquidez na pool {pool_name}...")
+        print(f"    Montante: ${amount_usdc} USDC | Hotkey Delegada: {principal_hotkey}")
+
+        try:
+            # Assinatura do x402
+            auth_headers = self.wallet.sign_payment_request(self.endpoint, amount_usdc)
+            
+            # Simulação de post na rede
+            print(f"    🏦 [Liquidez Ativa] Depósito de ${amount_usdc} confirmado no smart contract.")
+            return True
+        except Exception as e:
+            print(f"    ❌ [Liquidez Falhou] Erro no depósito: {e}")
+            return False
+
 # ==========================================
 # TESTE DO SISTEMA (Para você rodar localmente)
 # ==========================================
