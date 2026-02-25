@@ -37,3 +37,11 @@ web3_bridge.py
 testnet_signer.py
 autonomous_agent.py
 painel.py
+src/finance/agente_bd_intelligence.py
+src/finance/manifest_generator.py
+manifest_*.json
+src/finance/manifest_executor.py
+src/finance/logistica_brainfuel.py
+status_tanque.txt
+src/finance/status_frota.json
+src/finance/middleware_seguranca.py
