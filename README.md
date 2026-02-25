@@ -28,6 +28,7 @@ A maioria dos "Agentes de IA" hoje são meras interfaces (wrappers) dependentes 
 
 ## 📂 Estrutura do Projeto
 
+```text
 📦 OpenClaw-Sovereign
  ┣ 📂 src
  ┃ ┣ 📂 finance
@@ -38,6 +39,7 @@ A maioria dos "Agentes de IA" hoje são meras interfaces (wrappers) dependentes 
  ┃   ┗ 📜 brain_router.py    # (Em desenvolvimento) Orquestração cognitiva (SN4/SN64/SN120)
  ┣ 📜 main.py                # Sistema Nervoso Central (Orquestrador)
  ┗ 📜 README.md              # Documentação oficial
+```
 
 ---
 
