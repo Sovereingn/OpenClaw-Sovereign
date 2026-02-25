@@ -33,3 +33,7 @@ downloads/
 generated_media/
 historico_de_trades_simulados.txt
 historico_de_trades_reais.txt
+web3_bridge.py
+testnet_signer.py
+autonomous_agent.py
+painel.py
