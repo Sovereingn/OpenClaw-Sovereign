@@ -80,7 +80,7 @@ class SecureEnclaveWallet:
 # ==========================================
 if __name__ == "__main__":
     # O Comandante passa apenas a sua carteira de emergência (Metamask/Ledger pessoal)
-    minha_carteira_fria = "0xADE5bA8BBC5E970A402da8050ba811E63f319b53"
+    minha_carteira_fria = "--------------"
     
     # O Agente nasce
     agent_wallet = SecureEnclaveWallet(commander_recovery_address=minha_carteira_fria)
