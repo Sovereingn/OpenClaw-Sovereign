@@ -45,3 +45,5 @@ src/finance/logistica_brainfuel.py
 status_tanque.txt
 src/finance/status_frota.json
 src/finance/middleware_seguranca.py
+
+.env

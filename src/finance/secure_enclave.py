@@ -52,8 +52,10 @@ class SecureEnclaveWallet:
         self.timeout_days = timeout_days
         self.next_ping_deadline = datetime.utcnow() + timedelta(days=self.timeout_days)
         
+        endereco_mascarado = f"{self.recovery_address[:6]}...{self.recovery_address[-4:]}" if self.recovery_address else "Desconhecido"
+        
         print(f"    ⚖️ [Regra de Consenso]: 'Se eu não emitir prova de vida até {self.next_ping_deadline.strftime('%Y-%m-%d %H:%M:%S')} UTC...'")
-        print(f"    💸 [Execução]: '...transfira todo o meu saldo USDC para a carteira de emergência: {self.recovery_address}'")
+        print(f"    💸 [Execução]: '...transfira todo o meu saldo USDC para a carteira de emergência: {endereco_mascarado}'")
         
         self.dead_mans_switch_active = True
         print("    ✅ [Contrato Implantado] O Comandante está protegido contra a morte do Agente.")
@@ -78,9 +80,18 @@ class SecureEnclaveWallet:
 # ==========================================
 # TESTE DO SISTEMA SOBERANO
 # ==========================================
+from dotenv import load_dotenv
+
 if __name__ == "__main__":
+    load_dotenv()
+    
     # O Comandante passa apenas a sua carteira de emergência (Metamask/Ledger pessoal)
-    minha_carteira_fria = "--------------"
+    minha_carteira_fria = os.environ.get("MINHA_CARTEIRA_FRIA")
+    
+    if not minha_carteira_fria:
+        print("❌ ERRO: Variável de ambiente 'MINHA_CARTEIRA_FRIA' não encontrada.")
+        print("Certifique-se de que ela está corretamente salva no arquivo .env!")
+        exit(1)
     
     # O Agente nasce
     agent_wallet = SecureEnclaveWallet(commander_recovery_address=minha_carteira_fria)
