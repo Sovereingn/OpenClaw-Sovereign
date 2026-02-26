@@ -47,3 +47,6 @@ src/finance/status_frota.json
 src/finance/middleware_seguranca.py
 
 .env
+
+src/finance/estrategia_hyperliquid.py
+src/finance/hyperliquid_conexao.py
